@@ -12,12 +12,12 @@ type CatController struct {
 	Repo *repository.CatRepository
 }
 
-// ✅ สร้าง Controller ใหม่ และเชื่อมกับ Repository
+// Controller ใหม่ และเชื่อมกับ Repository
 func NewCatController(repo *repository.CatRepository) *CatController {
 	return &CatController{Repo: repo}
 }
 
-// ✅ รับข้อมูลจาก API `/cats` และบันทึกลง MongoDB
+// รับข้อมูลจาก API `/cats` และบันทึกลง MongoDB
 func (ctrl *CatController) CreateCat(c *gin.Context) {
 	var cat models.Cat
 	if err := c.ShouldBindJSON(&cat); err != nil {
@@ -28,7 +28,7 @@ func (ctrl *CatController) CreateCat(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Cat added"})
 }
 
-// ✅ ดึงข้อมูลแมวทั้งหมดจาก MongoDB
+// ดึงข้อมูลแมวทั้งหมดจาก MongoDB
 func (ctrl *CatController) GetCats(c *gin.Context) {
 	cats, _ := ctrl.Repo.GetCats()
 	c.JSON(http.StatusOK, cats)
