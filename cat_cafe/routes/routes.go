@@ -5,7 +5,7 @@ import (
     "github.com/gin-gonic/gin"
 )
 
-// ✅ กำหนด API Path
+// API Path
 func SetupRoutes(router *gin.Engine, catController *controllers.CatController) {
     router.POST("/cats", catController.CreateCat)
     router.GET("/cats", catController.GetCats)
