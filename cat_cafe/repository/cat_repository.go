@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -51,4 +52,18 @@ func (r *CatRepository) GetCats() ([]models.Cat, error) {
 
 	fmt.Println("ดึงข้อมูลแมวสำเร็จ:", cats)
 	return cats, nil
+}
+
+func (r *CatRepository) UpdateCat(id primitive.ObjectID, cat models.Cat) error {
+	_, err := r.collection.UpdateOne(
+		context.TODO(),
+		bson.M{"_id": id},
+		bson.M{"$set": cat},
+	)
+	return err
+}
+
+func (r *CatRepository) DeleteCat(id primitive.ObjectID) error {
+	_, err := r.collection.DeleteOne(context.TODO(), bson.M{"_id": id})
+	return err
 }
